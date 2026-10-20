@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KidoChat</title>
+  <meta name="description" content="KidoChat: a messaging app for children where parents approve every contact and see every message.">
+  <style>
+/* KidoChat public pages: homepage and privacy policy (GitHub Pages). */
+:root {
+  --ink: #1b1b1f;
+  --muted: #55565c;
+  --paper: #fffdf7;
+  --panel: #ffffff;
+  --accent: #ffd23f;
+  --primary: #2f5bea;
+  --line: #1b1b1f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f3f3f5;
+    --muted: #b4b5bb;
+    --paper: #16171b;
+    --panel: #202127;
+    --accent: #e8bd22;
+    --primary: #8fa9ff;
+    --line: #f3f3f5;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.6 "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+header.hero {
+  background: var(--accent);
+  color: #1b1b1f;
+  border: 3px solid #1b1b1f;
+  border-radius: 22px;
+  box-shadow: 5px 5px 0 #1b1b1f;
+  padding: 28px 24px;
+  margin-bottom: 32px;
+}
+header.hero h1 { font-size: 44px; line-height: 1.1; margin: 0 0 8px; }
+header.hero p { margin: 0; font-size: 19px; font-weight: 700; }
+h1 { font-size: 34px; line-height: 1.2; margin: 0 0 4px; }
+h2 { font-size: 23px; margin: 36px 0 8px; }
+h3 { font-size: 18px; margin: 20px 0 4px; }
+p, li { color: var(--ink); }
+.muted { color: var(--muted); }
+a { color: var(--primary); font-weight: 700; }
+ul { padding-left: 22px; }
+li { margin: 4px 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.card {
+  background: var(--panel);
+  border: 2.5px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+}
+.card h3 { margin-top: 0; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 16px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1.5px solid var(--muted); }
+th { font-weight: 800; }
+.table-wrap { overflow-x: auto; }
+footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
+[dir="rtl"] ul { padding-left: 0; padding-right: 22px; }
+[dir="rtl"] th, [dir="rtl"] td { text-align: right; }
+  </style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <h1>KidoChat</h1>
+    <p>Messaging for kids, with their grown-ups in the loop.</p>
+  </header>
+
+  <p>KidoChat is a chat app for children. Kids talk with friends their parents have approved, and parents can see
+    every message. It is built by a parent and child, and is currently being tested by family and friends on
+    iPhone and Android.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Parents approve every friend</h3>
+      <p>A chat opens only after both families say yes. Adults who want to talk with a child need that child's
+        parent to agree.</p>
+    </div>
+    <div class="card">
+      <h3>Unkind messages wait</h3>
+      <p>Messages between kids are checked before they arrive. Anything insulting, aggressive, rude or leaving
+        someone out is held for a parent to look at.</p>
+    </div>
+    <div class="card">
+      <h3>No photos between kids</h3>
+      <p>Kids send each other text and emoji. Pictures, videos and voice notes go only to their own parents.</p>
+    </div>
+    <div class="card">
+      <h3>Quiet hours and SOS</h3>
+      <p>Parents set quiet hours for each child. One SOS button sends a child's parents an alert with their
+        location.</p>
+    </div>
+  </div>
+
+  <h2>Privacy</h2>
+  <p>KidoChat has no ads and does not sell or share personal information for advertising. Messages are stored
+    in the European Union. Read the <a href="privacy.html">privacy policy</a> for exactly what is collected and
+    why.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, or a request to see or delete your data: <a href="mailto:kidochat.support@gmail.com">kidochat.support@gmail.com</a>.</p>
+
+  <footer>KidoChat · <a href="privacy.html">Privacy policy</a> · <a href="terms.html">Terms</a></footer>
+</main>
+</body>
+</html>
