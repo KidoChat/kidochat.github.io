@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>KidoChat Invite</title>
+  <meta name="description" content="Where a KidoChat invite link lands: open the app with the invite, or get the app first.">
+  <style>
+/* KidoChat public pages: where an invite link (i.html?c=CODE) lands. */
+:root {
+  --ink: #1b1b1f;
+  --muted: #55565c;
+  --paper: #fffdf7;
+  --panel: #ffffff;
+  --accent: #ffd23f;
+  --line: #1b1b1f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f3f3f5; --muted: #b4b5bb; --paper: #16171b; --panel: #202127; --accent: #e8bd22; --line: #f3f3f5;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #f3f3f5; --muted: #b4b5bb; --paper: #16171b; --panel: #202127; --accent: #e8bd22; --line: #f3f3f5;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 18px/1.55 "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+main { max-width: 560px; margin: 0 auto; padding: 40px 16px 64px; }
+.card {
+  background: var(--panel);
+  border: 3px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 5px 5px 0 var(--line);
+  padding: 22px 20px;
+  margin-bottom: 20px;
+}
+.card.ok { background: var(--accent); color: #1b1b1f; border-color: #1b1b1f; box-shadow: 5px 5px 0 #1b1b1f; }
+.big { font-size: 52px; line-height: 1; margin: 0 0 10px; }
+h1 { font-size: 26px; line-height: 1.2; margin: 0 0 8px; }
+h2 { font-size: 20px; margin: 0 0 6px; }
+p { margin: 0 0 8px; }
+ol { margin: 0 0 8px; padding-inline-start: 22px; }
+.code {
+  display: inline-block; font: 800 26px/1.2 ui-monospace, Menlo, monospace; letter-spacing: 3px;
+  background: var(--panel); color: var(--ink); border: 2px dashed var(--line); border-radius: 12px; padding: 6px 12px;
+}
+.button {
+  display: inline-block; text-decoration: none; font-weight: 800; color: #1b1b1f; background: #fff;
+  border: 3px solid #1b1b1f; border-radius: 14px; box-shadow: 3px 3px 0 #1b1b1f; padding: 10px 16px; margin: 6px 0;
+}
+.muted { color: var(--muted); font-size: 15px; }
+[hidden] { display: none !important; }
+footer { margin-top: 28px; font-size: 15px; color: var(--muted); }
+a { color: inherit; font-weight: 700; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="card ok">
+    <p class="big">👋</p>
+    <h1>You're invited to KidoChat</h1>
+    <p>A safe chat app for kids and their grown-ups. Open the invite in the app and you'll be connected with the person
+      who sent it.</p>
+    <p><a class="button" id="open" href="#">Open in KidoChat</a></p>
+    <p class="muted" id="code-line">Or, in the app, go to <b>Add a friend</b> and type this code:
+      <span class="code" id="code"></span></p>
+  </section>
+  <section class="card ok" dir="rtl" lang="he">
+    <p class="big">👋</p>
+    <h1>הזמנה ל-KidoChat</h1>
+    <p>אפליקציית צ'אט בטוחה לילדים ולמבוגרים שלהם. פותחים את ההזמנה באפליקציה ומתחברים למי ששלח אותה.</p>
+    <p><a class="button" id="open-he" href="#">פתיחה ב-KidoChat</a></p>
+    <p class="muted" id="code-line-he">או באפליקציה, ב<b>הוספת חבר</b>, מקלידים את הקוד:
+      <span class="code" id="code-he" dir="ltr"></span></p>
+  </section>
+
+  <section class="card">
+    <h2>Don't have the app yet?</h2>
+    <ol>
+      <li><a href="index.html#get">Get KidoChat</a> (Android, or iPhone through TestFlight).</li>
+      <li>Open it and sign up through <b>Adult sign-in</b>.</li>
+      <li>Come back to this page and tap <b>Open in KidoChat</b>, or type the code above.</li>
+    </ol>
+  </section>
+  <section class="card" dir="rtl" lang="he">
+    <h2>עוד אין לכם את האפליקציה?</h2>
+    <ol>
+      <li><a href="index.html#get">מורידים את KidoChat</a> (אנדרואיד, או אייפון דרך TestFlight).</li>
+      <li>פותחים ונרשמים דרך <b>כניסת מבוגרים</b>.</li>
+      <li>חוזרים לעמוד הזה ולוחצים <b>פתיחה ב-KidoChat</b>, או מקלידים את הקוד.</li>
+    </ol>
+  </section>
+
+  <footer><a href="index.html">KidoChat</a> · <a href="privacy.html">Privacy</a></footer>
+</main>
+<script>
+  // The code rides in the link (i.html?c=CODE). Nothing is stored or sent from this page:
+  // the app takes the code (kidochat://invite?c=CODE) and checks it with the server.
+  (function () {
+    var code = (new URLSearchParams(location.search).get('c') || '').toUpperCase().replace(/[^0-9A-Z]/g, '').slice(0, 12);
+    var app = 'kidochat://invite?c=' + encodeURIComponent(code);
+    ['open', 'open-he'].forEach(function (id) { document.getElementById(id).href = app; });
+    ['code', 'code-he'].forEach(function (id) { document.getElementById(id).textContent = code; });
+    if (!code) {
+      ['open', 'open-he', 'code-line', 'code-line-he'].forEach(function (id) { document.getElementById(id).hidden = true; });
+      return;
+    }
+    // On a phone with KidoChat installed this opens it straight away; otherwise nothing happens and the page stays.
+    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) setTimeout(function () { location.href = app; }, 300);
+  })();
+</script>
+</body>
+</html>
