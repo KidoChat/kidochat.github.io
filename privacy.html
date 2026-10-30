@@ -158,7 +158,9 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
     <li>When an account is deleted, its profile, messages and files are deleted straight away, including the files in
       its chats with its own parents or children and with other adults. One exception protects children: what an
       adult wrote to someone else's child stays in that child's parents' log, under the adult's name. Copies may
-      remain in the hosting provider's backups for a short time before they are overwritten.</li>
+      remain in backups for a short time before they are overwritten.</li>
+    <li>We keep a weekly backup copy of the database, encrypted, for up to a month (the four newest copies), so the
+      service can be restored after a failure. Only the KidoChat team can open it.</li>
   </ul>
 
   <h2>Your choices and rights</h2>
