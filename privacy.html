@@ -74,7 +74,7 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
 <body>
 <main>
   <h1>Privacy policy</h1>
-  <p class="muted">KidoChat · Effective 16 October 2026</p>
+  <p class="muted">KidoChat · Effective 31 October 2026</p>
 
   <p>KidoChat is a messaging app for children and the adults around them. This policy says what information the
     app collects, why, who else handles it, how long it is kept, and how to see or delete it. KidoChat is run by
@@ -83,7 +83,8 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
 
   <h2>Children</h2>
   <p>A child's account can only be created by a parent, inside the parent's own account. The parent enters the
-    child's real name and chooses their code name and PIN, and stays in control: they approve every contact, can
+    name the child is shown by (for example "Bart S.") and a secret code, sets up the child's phone, and stays in
+    control: they approve every contact, can
     read every message the child sends and receives, approve any profile picture, and can delete the child's
     account at any time. KidoChat does not show ads to anyone, and does not let children share photos, videos or
     voice notes with other children.</p>
@@ -93,12 +94,13 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
   <table>
     <tr><th>About</th><th>What</th><th>Why</th></tr>
     <tr><td>Children</td>
-        <td>Code name, real name, PIN (stored only in scrambled form), avatar or approved selfie, chosen theme,
-          quiet hours and time zone</td>
-        <td>To sign in, and to show friends who they are talking to</td></tr>
+        <td>Name, secret code (stored only in scrambled form), avatar or approved selfie, chosen theme, quiet hours
+          and time zone; what they call each parent ("Mom"); the phones and tablets they're set up on (a random id,
+          the kind of device and when it was last used)</td>
+        <td>To sign in, to show friends who they are talking to, and so parents can sign them out of a device</td></tr>
     <tr><td>Adults</td>
         <td>Display name, and how they sign in: email address, Apple or Google account, or phone number
-          (WhatsApp sign-in); a cartoon character or a photo they choose; a nickname they choose, to share</td>
+          (WhatsApp sign-in); a cartoon character or a photo they choose</td>
         <td>To sign in, and so other adults and parents can recognise them</td></tr>
     <tr><td>Groups</td>
         <td>A group's name and, if a parent of a kid in it chooses one, a group photo</td>
@@ -130,7 +132,8 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
       app's server code.</li>
     <li><strong>Mistral AI</strong> (France) checks messages before delivery: messages between children, and
       messages between a child and an adult who is not their parent. It receives the new message and a few recent
-      messages from the same chat, with code names. We use Mistral's paid service, under which it does not train
+      messages from the same chat, with no names: people appear only as "Kid A", "Grown-up B" and so on. We use
+      Mistral's paid service, under which it does not train
       on what it receives. Messages between a child and their own parents, and between adults, are not sent to it.</li>
     <li><strong>Google Firebase Cloud Messaging</strong> delivers notifications to Android phones, and through Apple
       to iPhones. Notifications contain no message text,
