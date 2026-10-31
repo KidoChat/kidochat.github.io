@@ -83,7 +83,7 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
 
   <h2>Children</h2>
   <p>A child's account can only be created by a parent, inside the parent's own account. The parent enters the
-    child's full name and the name they are shown by (for example "Bart"), and a secret code, sets up the child's
+    child's full name and a nickname, the name others see (for example "Bart"), and a secret code, sets up the child's
     phone, and stays in control: they approve every contact, can
     read every message the child sends and receives, approve any profile picture, and can delete the child's
     account at any time. KidoChat does not show ads to anyone, and does not let children share photos, videos or
@@ -164,7 +164,9 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
     <li>Messages and profiles are kept until the account is deleted.</li>
     <li>Video files are deleted 7 days after the person they were sent to first watches them, or 30 days after
       they were sent if never watched. The message itself stays, marked as removed.</li>
-    <li>One-time sign-in codes expire after 10 minutes and are deleted within a day.</li>
+    <li>One-time codes expire: pairing and friend codes after 10 minutes, a child's friend link and an invitation
+      to join as a child's parent after 7 days, a grown-up's invite link after 30 days (or when switched off). Expired
+      pairing, friend and invitation codes are deleted about a day later.</li>
     <li>Reports are kept while we look into them, and are deleted with the account of the person who reported.</li>
     <li>When an account is deleted, its profile, messages and files are deleted straight away, including the files in
       its chats with its own parents or children and with other adults. One exception protects children: what an
@@ -187,7 +189,7 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
   <h2>Security</h2>
   <p>Access rules in the database decide who can read what, so a child can only see their own approved chats, and
     files can only be opened by people allowed to read the message they belong to. Connections are encrypted, and
-    PINs are stored only in scrambled form.</p>
+    secret codes are stored only in scrambled form.</p>
 
   <h2>Changes</h2>
   <p>If this policy changes, the new version will be posted here with a new date. Important changes will also be
