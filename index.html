@@ -45,7 +45,8 @@ header.hero {
   margin-bottom: 32px;
 }
 header.hero h1 { font-size: 44px; line-height: 1.1; margin: 0 0 8px; }
-header.hero p { margin: 0; font-size: 19px; font-weight: 700; }
+header.hero h1 .logo { display: block; width: min(320px, 100%); height: auto; }
+header.hero p { margin: 0; font-size: 19px; font-weight: 700; color: #1b1b1f; }
 h1 { font-size: 34px; line-height: 1.2; margin: 0 0 4px; }
 h2 { font-size: 23px; margin: 36px 0 8px; }
 h3 { font-size: 18px; margin: 20px 0 4px; }
@@ -70,11 +71,13 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
 [dir="rtl"] ul { padding-left: 0; padding-right: 22px; }
 [dir="rtl"] th, [dir="rtl"] td { text-align: right; }
   </style>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
 </head>
 <body>
 <main>
   <header class="hero">
-    <h1>KidoChat</h1>
+    <h1><img class="logo" src="logo.svg" alt="KidoChat" width="378" height="100"></h1>
     <p>Messaging for kids, with their grown-ups in the loop.</p>
   </header>
 
