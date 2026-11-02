@@ -76,7 +76,7 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
 <body>
 <main>
   <h1>Privacy policy</h1>
-  <p class="muted">KidoChat · Effective 31 October 2026 · Updated 1 November 2026</p>
+  <p class="muted">KidoChat · Effective 31 October 2026 · Updated 2 November 2026</p>
 
   <p>KidoChat is a messaging app for children and the adults around them. This policy says what information the
     app collects, why, who else handles it, how long it is kept, and how to see or delete it. KidoChat is run by
@@ -95,8 +95,8 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
   <p>Everyone is shown by their nickname (the name others see). A full name is seen only by the person, their family, and people they
     are connected with through KidoChat: friends and their parents, the people in their groups, and grown-ups they
     are connected with (and a parent deciding whether to approve a request). It stops being shown when the
-    connection ends. Nobody can look anyone up by their full name, and it is never sent to the safety filter or in a
-    notification. KidoChat staff (admins) can see it when handling accounts and reports.</p>
+    connection ends. Nobody can look anyone up by their full name, and the app never gives it to the safety filter or puts
+    it in a notification (though what someone types in a message reaches the filter as written). KidoChat staff (admins) can see it when handling accounts and reports.</p>
 
   <h2>What we collect</h2>
   <div class="table-wrap">
@@ -142,7 +142,9 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
       app's server code.</li>
     <li><strong>Mistral AI</strong> (France) checks messages before delivery: messages between children, and
       messages between a child and an adult who is not their parent. It receives the new message and a few recent
-      messages from the same chat, with no names: people appear only as "Kid A", "Grown-up B" and so on. We use
+      messages from the same chat. The people in the chat are labelled "Kid A", "Grown-up B" and so on instead of
+      named, and phone numbers and email addresses are masked, but the rest of the text is sent as written, so a name
+      or address someone types reaches it. We use
       Mistral's paid service, under which it does not train
       on what it receives. Messages between a child and their own parents, and between adults, are not sent to it.</li>
     <li><strong>Google Firebase Cloud Messaging</strong> delivers notifications to Android phones, and through Apple
