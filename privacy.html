@@ -76,7 +76,7 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
 <body>
 <main>
   <h1>Privacy policy</h1>
-  <p class="muted">KidoChat · Effective 31 October 2026 · Updated 2 November 2026</p>
+  <p class="muted">KidoChat · Effective 31 October 2026 · Updated 6 November 2026</p>
 
   <p>KidoChat is a messaging app for children and the adults around them. This policy says what information the
     app collects, why, who else handles it, how long it is kept, and how to see or delete it. KidoChat is run by
@@ -140,13 +140,14 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
   <ul>
     <li><strong>Supabase</strong> stores all of the above, in the European Union (Frankfurt, Germany), and runs the
       app's server code.</li>
-    <li><strong>Mistral AI</strong> (France) checks messages before delivery: messages between children, and
-      messages between a child and an adult who is not their parent. It receives the new message and a few recent
-      messages from the same chat. The people in the chat are labelled "Kid A", "Grown-up B" and so on instead of
+    <li><strong>Mistral AI</strong> (France) checks messages before delivery: messages between children (one to
+      one and in groups), messages between a child and a grown-up friend, and what a grown-up invited into a group
+      posts there. It receives the new message and a few recent messages from the same chat. The people in the chat are labelled "Kid A", "Grown-up B" and so on instead of
       named, and phone numbers and email addresses are masked, but the rest of the text is sent as written, so a name
       or address someone types reaches it. We use
       Mistral's paid service, under which it does not train
-      on what it receives. Messages between a child and their own parents, and between adults, are not sent to it.</li>
+      on what it receives. Messages between a child and their own parents, what the parents of a group's members
+      post in that group, and messages between adults are not sent to it.</li>
     <li><strong>Google Firebase Cloud Messaging</strong> delivers notifications to Android phones, and through Apple
       to iPhones. Notifications contain no message text,
       names or locations: only phrases like "New message".</li>
