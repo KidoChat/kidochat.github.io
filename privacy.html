@@ -118,6 +118,10 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
         <td>Messages: text, emoji, voice notes, and the pictures and videos sent between adults or
           between a child and their own parents</td>
         <td>To deliver them, and so parents can see their child's conversations</td></tr>
+<tr><td>Children, and grown-ups writing to children</td>
+<td>When the safety filter holds a message, the reason it gave (a short sentence, in English and Hebrew), kept with
+the message</td>
+<td>So the parent who decides can see why it was held</td></tr>
     <tr><td>Everyone</td>
         <td>A location, only when someone shares it in a chat, a child presses SOS, or a parent asks where their child is</td>
         <td>To show it to the chat or to the child's parents</td></tr>
@@ -131,6 +135,9 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
     <tr><td>Everyone</td>
         <td>A notification token for each phone</td>
         <td>To send notifications</td></tr>
+        <tr><td>Everyone</td>
+        <td>The network address of a phone that tries a pairing code, counted for a day</td>
+        <td>To slow down guessing</td></tr>
   </table>
   </div>
   <p>KidoChat does not use advertising, analytics or tracking tools, and does not collect contacts, browsing
@@ -162,7 +169,8 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
     <strong>Google Maps</strong>.</p>
   <p>A few KidoChat staff (admins) can see accounts, sign-ins, chats and reports, to look into reports, keep children
     safe and run the service. They can pause or delete accounts and remove messages that break the
-    <a href="terms.html">terms</a>.</p>
+    <a href="terms.html">terms</a>. To answer a request for a copy of someone's information (below), an admin
+    exports it from the app and sends it to that person only.</p>
   <p>We do not sell personal information or share it with anyone else, except where the law requires it.</p>
 
   <h2>How long it is kept</h2>
@@ -170,15 +178,20 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
     <li>Messages and profiles are kept until the account is deleted.</li>
     <li>Video files are deleted 7 days after the person they were sent to first watches them, or 30 days after
       they were sent if never watched. The message itself stays, marked as removed.</li>
+<li>A location sent as a pin in a chat stays with its message. A location sent by SOS, or when a parent asked
+where their child is, is deleted after 30 days.</li>
     <li>One-time codes expire: pairing and friend codes after 10 minutes, a child's friend link and an invitation
       to join as a child's parent after 7 days, a grown-up's invite link after 7 days (each works once; the
       grown-up can switch them off). Expired
       pairing and friend codes and invitations are deleted about a day later.</li>
-    <li>Reports are kept while we look into them, and are deleted with the account of the person who reported.</li>
+    <li>Reports are kept while we look into them, and are deleted with the account of the person who reported. A
+report keeps its copy of the message and the sender's name even if the sender later deletes their account.</li>
     <li>When an account is deleted, its profile, messages and files are deleted straight away, including the files in
       its chats with its own parents or children and with other adults. One exception protects children: what an
       adult wrote to someone else's child stays in that child's parents' log, under the adult's name. Copies may
       remain in backups for a short time before they are overwritten.</li>
+<li>If we remove an account for breaking the terms, we keep only its sign-in email address or phone number, so
+the same person can't sign up again. Everything else about the account is deleted as above.</li>
     <li>We keep a weekly backup copy of the database, encrypted, for up to a month (the four newest copies), so the
       service can be restored after a failure. Only the KidoChat team can open it.</li>
   </ul>
@@ -196,7 +209,8 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
   <h2>Security</h2>
   <p>Access rules in the database decide who can read what, so a child can only see their own approved chats, and
     files can only be opened by people allowed to read the message they belong to. Connections are encrypted, and
-    secret codes are stored only in scrambled form.</p>
+    children's secret codes are stored only in scrambled form. One-time codes (pairing, friend and invitation codes)
+    are stored as they are, because they expire within minutes or days.</p>
 
   <h2>Changes</h2>
   <p>If this policy changes, the new version will be posted here with a new date. Important changes will also be
