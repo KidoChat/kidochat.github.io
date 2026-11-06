@@ -133,6 +133,7 @@ h2 {
 .kids-note { margin: 22px 0 0; }
 
 .plain { max-width: 760px; }
+.lang { float: right; margin-top: 4px; }
 footer {
   margin-top: 64px; padding: 28px 0 40px; border-top: 4px solid var(--line);
   color: var(--muted); font-size: 16px;
@@ -152,6 +153,16 @@ footer {
   .shots { grid-template-columns: repeat(2, 1fr); gap: 16px; }
 }
   </style>
+  <link rel="alternate" hreflang="en" href="https://kidochat.atanyco.com/">
+  <link rel="alternate" hreflang="he" href="https://kidochat.atanyco.com/he.html">
+  <script>
+    try {
+      var q = new URLSearchParams(location.search);
+      if (q.get('lang') === 'en') localStorage.setItem('kc-lang', 'en');
+      else if (localStorage.getItem('kc-lang') !== 'en' && /^(he|iw)\b/i.test(navigator.language || ''))
+        location.replace('he.html' + location.hash);
+    } catch (e) {}
+  </script>
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="apple-touch-icon" href="icon.png">
 </head>
@@ -179,6 +190,7 @@ footer {
 </header>
 
 <main class="wrap">
+  <a class="lang" href="he.html" hreflang="he" lang="he" dir="rtl">עברית</a>
   <p class="intro"><span translate="no">KidoChat</span> is a chat app for children. Kids talk with friends their parents have approved, and
     parents can see every message. It is built by a parent and child, and is currently being tested by family and
     friends on <span translate="no">iPhone</span> and <span translate="no">Android</span>.</p>
@@ -270,6 +282,7 @@ footer {
   </section>
 
   <footer><span translate="no">KidoChat</span> · <a href="privacy.html">Privacy policy</a> · <a href="terms.html">Terms</a> ·
+    <a href="he.html" hreflang="he" lang="he">עברית</a> ·
     Fonts: Bangers and Nunito (<a href="fonts/OFL-nunito.txt">SIL Open Font License</a>)</footer>
 </main>
 </body>
