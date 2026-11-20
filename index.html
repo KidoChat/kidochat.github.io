@@ -114,6 +114,7 @@ h2 {
 .feature img { flex: none; width: 72px; height: 72px; border-radius: 50%; border: 4px solid var(--line); background: #fff; }
 .cards .feature:nth-child(1) { transform: rotate(-1deg); }
 .cards .feature:nth-child(4) { transform: rotate(1deg); }
+.cards .feature.wide { grid-column: 1 / -1; }
 
 /* The app, as it looks (the store screenshots) */
 .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -217,7 +218,7 @@ footer {
       <img src="img/panda.webp" alt="" width="72" height="72">
       <div>
         <h3>No photos between kids</h3>
-        <p>Kids send each other text and emoji. Pictures, videos and voice notes go only to their own parents.</p>
+        <p>Kids send each other text, emoji and drawings. Pictures, videos and voice notes go only to their own parents.</p>
       </div>
     </div>
     <div class="card feature">
@@ -225,6 +226,14 @@ footer {
       <div>
         <h3>Quiet hours and SOS</h3>
         <p>Parents set quiet hours for each child. One SOS button alerts the child's parents, with their location.</p>
+      </div>
+    </div>
+    <div class="card feature wide">
+      <img src="img/robot.webp" alt="" width="72" height="72">
+      <div>
+        <h3>Draw, play and vote</h3>
+        <p>Draw a <span translate="no">Doodle</span> in any chat, play <span translate="no">KidoFool</span> (a guessing
+          game) with friends, or start a poll. Kids' drawings and answers are checked like their messages.</p>
       </div>
     </div>
   </div>

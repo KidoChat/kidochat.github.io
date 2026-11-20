@@ -76,7 +76,7 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
 <body>
 <main>
   <h1>Privacy policy</h1>
-  <p class="muted">KidoChat · Effective 31 October 2026 · Updated 19 November 2026</p>
+  <p class="muted">KidoChat · Effective 31 October 2026 · Updated 20 November 2026</p>
 
   <p>KidoChat is a messaging app for children and the grown-ups around them. It is run by <strong>Atany LLC</strong>
     (30 N Gould St, STE 35224, Sheridan, WY 82801, USA), which is responsible for the information below. Contact:
@@ -88,7 +88,7 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
     enters the child's full name, a nickname (the name others see) and a secret code, and sets up the child's phone.
     Parents approve every contact and profile picture, can read every message their child sends or receives, and can
     delete the child's account at any time. No ads. Children can't share photos, videos or voice notes with other
-    children.</p>
+    children; their drawings are checked first.</p>
 
   <h2>Full names</h2>
   <p>Everyone is shown by nickname. A full name is seen only by the person, their family, people connected to them
@@ -116,6 +116,11 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
           parents; pictures in grown-ups' groups. With them: which message one answers, emoji reactions and poll votes
           (with who gave them), and which messages are pinned to the top of a chat</td>
         <td>Delivery; parents seeing their child's chats</td></tr>
+    <tr><td>Everyone</td>
+        <td>Drawings (Doodle and the KidoFool game): the picture and the strokes it was drawn with. KidoFool rounds:
+          the idea or question, the real answer, answers, guesses, votes and times; each player's points per chat.
+          Whether a parent turned the game off for their child, or someone muted its notifications</td>
+        <td>Showing them in the chat and playing; a held drawing or answer waits for a parent</td></tr>
     <tr><td>Everyone</td>
         <td>Messages scheduled to send later: the text, the chat and the time</td>
         <td>Sending it then; a child's parents can see and delete their child's</td></tr>
@@ -156,9 +161,11 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
     <li><strong>Mistral AI</strong> (France): the safety filter. It checks messages between children, between a child
       and a grown-up friend, and grown-ups' posts in children's groups (an invited grown-up, or a parent when another
       family's child is in the group), with a few recent lines of the same chat. People are labelled "Kid A",
-      "Grown-up B"; phone numbers and emails are masked; other text is sent as written. Paid service with zero data
-      retention: no training, nothing kept after the check. Not sent: messages between a child and their own parents,
-      a parent's posts in a group of only their own children, and messages between grown-ups.</li>
+      "Grown-up B"; phone numbers and emails are masked; other text is sent as written. Drawings in those chats go as
+      the picture alone, with no name or chat. For KidoFool it also writes ideas and questions from the round type,
+      the language, the level and the chat's recent ideas, never anything about the players. Paid service with zero
+      data retention: no training, nothing kept after the check. Not sent: messages and drawings between a child and
+      their own parents, a parent's posts in a group of only their own children, and anything between grown-ups.</li>
     <li><strong>Google Firebase Cloud Messaging</strong> (possibly anywhere, including the US): delivers notifications,
       through Apple to iPhones. They carry no message text, names or places: only phrases like "New message" and the
       number for the app's icon.</li>
@@ -176,6 +183,8 @@ footer { margin-top: 48px; font-size: 15px; color: var(--muted); }
   <h2>How long it is kept</h2>
   <ul>
     <li>Profiles and messages: until the account is deleted.</li>
+    <li>Drawings, KidoFool rounds, answers, guesses and votes: like messages. Points: until the player leaves the chat
+      or deletes their account.</li>
     <li>A scheduled message: until it is sent; one that couldn't be sent, a week. "Typing…" is not stored.</li>
     <li>Your own message: you can delete or edit it within an hour. In a chat with a child, what was deleted and earlier
       wordings stay visible to that child's parents in their log, and to staff looking into a report. Between grown-ups
