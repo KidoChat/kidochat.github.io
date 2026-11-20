@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The database page (docs/db-admin-tool-spec.md): owner only. No outside code; this policy lets the page load only
+       its own files and talk only to KidoChat's Supabase project. GitHub Pages can't send headers, so frame-ancestors
+       isn't available here: app.js refuses to run inside a frame. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; connect-src https://slzjsgvneuejncfveull.supabase.co wss://slzjsgvneuejncfveull.supabase.co; img-src 'self' https://slzjsgvneuejncfveull.supabase.co; media-src https://slzjsgvneuejncfveull.supabase.co; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>KidoChat database</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <noscript>This page needs JavaScript.</noscript>
+  <div id="app"></div>
+  <script src="vendor/supabase-2.118.0.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
