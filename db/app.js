@@ -291,12 +291,16 @@
   // ---------------------------------------------------------------------------------------------------------------
   // Sign-in, idle sign-out, frame
 
+  // The screen goes first: signing out asks the server, and a stalled network must not leave a table, a chat or a
+  // revealed value on show past the idle time (outside review of 22 Nov 2026, #11). The sign-in kept in this tab
+  // goes next, whatever the server answers; ending it on the server gets 5 seconds.
   async function signOut(reason) {
     document.querySelectorAll('.overlay').forEach((o) => o.remove());
-    try { await sb.auth.signOut({ scope: 'local' }); } catch (_) { /* gone already */ }
-    try { window.sessionStorage.clear(); } catch (_) { /* nothing kept */ }
     state.tables = [];
     renderSignIn(reason);
+    const ending = sb.auth.signOut({ scope: 'local' }).catch(() => { /* gone already */ });
+    await Promise.race([ending, new Promise((ok) => setTimeout(ok, 5000))]);
+    try { window.sessionStorage.clear(); } catch (_) { /* nothing kept */ }
   }
   function renderSignIn(message) {
     clear(app);
@@ -441,7 +445,7 @@
       out.push(actBtn('End friendship', () => runAction(A({ label: 'End friendship', danger: true, checks: ['end_chat'],
         run: () => rpc('admin_end_friendship', { p_id: v.id }) })), 'danger'));
     }
-    if (t.table === 'chats' || t.table === 'adult_chats') chatActions(v.id, t.table === 'chats' ? v : null, A, out);
+    if (t.table === 'chats' || t.table === 'adult_chats') chatActions(v.id, t.table === 'chats' ? v : null, A, out, !!v.frozen_at);
     if (t.table === 'chat_members' && !v.left_at) {
       out.push(actBtn('Take out of the group', () => runAction(A({ label: 'Take out of the group', danger: true,
         checks: ['remove_from_group'], run: () => rpc('admin_remove_from_group', { p_chat: v.chat_id, p_person: v.child_id }) })), 'danger'));
@@ -534,9 +538,10 @@
       run: () => edge({ action: 'delete_account', person: id, block: true }) })), 'danger'));
   }
 
-  function chatActions(id, chat, A, out) {
+  // chat: the chats row, null for a chat between two grown-ups (no kids' actions there); frozen: either kind's
+  // frozen_at, so a frozen grown-up chat offers Unfreeze (outside review of 22 Nov 2026, #12).
+  function chatActions(id, chat, A, out, frozen) {
     out.push(actBtn('Open the chat', () => { state.chatId = id; state.chatReport = null; state.chatAround = null; go('#/chat'); }));
-    const frozen = chat ? !!chat.frozen_at : false;
     out.push(actBtn(frozen ? 'Unfreeze' : 'Freeze', () => runAction(A({ label: frozen ? 'Unfreeze the chat' : 'Freeze the chat',
       run: () => rpc('admin_freeze_chat', { p_chat: id, p_frozen: !frozen }) }))));
     if (chat) {
@@ -960,7 +965,12 @@
     const out = [];
     const isGroup = await rpc('dbtool_rows', { p_table: 'chats', p_filters: [{ col: 'id', op: 'eq', value: chat }], p_offset: 0, p_limit: 1 });
     const chatRow = isGroup.rows[0] ? isGroup.rows[0].v : null;
-    chatActions(chat, chatRow, (o) => Object.assign({ after: () => route() }, o), out);
+    let frozenAt = chatRow ? chatRow.frozen_at : null;
+    if (!chatRow) {
+      const adult = await rpc('dbtool_rows', { p_table: 'adult_chats', p_filters: [{ col: 'id', op: 'eq', value: chat }], p_offset: 0, p_limit: 1 });
+      frozenAt = adult.rows[0] ? adult.rows[0].v.frozen_at : null;
+    }
+    chatActions(chat, chatRow, (o) => Object.assign({ after: () => route() }, o), out, !!frozenAt);
     root.append(el('div', { class: 'actions' }, out.filter((b) => b.textContent !== 'Open the chat')));
     return root;
   }
