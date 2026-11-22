@@ -635,14 +635,14 @@
 
     // Add (direct edits)
     if (t.can_add) {
-      root.append(el('div', { class: 'bar' }, actBtn(name === 'labs_chats' ? 'Add a chat to the trial' : 'Ban a question', async () => {
+      root.append(el('div', { class: 'bar' }, actBtn(name === 'labs_chats' ? 'Add a chat to the old trial list' : 'Ban a question', async () => {
         if (name === 'labs_chats') {
           const id = await ask('Chat id or grown-ups\' chat id', 'Next', '', { test: (x) => UUID.test(x), testMessage: 'An id like 0f1e…' });
           if (id === null) return;
           const kindSel = await dialog('Which kind of chat?', el('div', { text: 'Is this a chat with a child in it, or a chat between two grown-ups?' }),
             [{ label: 'Cancel', value: null }, { label: 'Grown-ups\' chat', value: 'adult_chat_id' }, { label: 'Chat', value: 'chat_id', class: 'primary' }]);
           if (!kindSel) return;
-          runAction({ label: 'Add the chat to the trial', lines: ['It gets KidoDoodle and KidoFool on KIDO_LABS builds.'],
+          runAction({ label: 'Add the chat to the old trial list', lines: ['Unused since 20 Nov 2026: Doodle and KidoFool are in every chat (the labs_enabled setting).'],
             run: () => rpc('dbtool_add', { p_table: 'labs_chats', p_row: { [kindSel]: id.toLowerCase() } }), checks: ['dbtool_edit'], after: refresh });
         } else {
           const q = await ask('The question, as KidoFool asked it', 'Next', '');
