@@ -166,9 +166,21 @@
   }
   // a = { label, danger, preview: {action, args} | null, lines: [], reread: async () => string, snapshot: string,
   //       run: async () => result, checks: [action names], after: () => void, askText: {must, hint} }
+  // What an action is about, as the first line of its confirmation (OA, 22 Nov 2026: "Yes, add it"): the kind of
+  // thing, a name the page already shows for it (a title, a nickname; never message text) and the start of its id.
+  function targetOf(what, v) {
+    v = v || {};
+    const name = [v.title, v.real_name, v.display_name, v.name, v.key, v.label].find((x) => typeof x === 'string' && x && x.length <= 120);
+    const id = [v.id, v.report_id, v.message_id, v.chat_id].find((x) => typeof x === 'string' && UUID.test(x));
+    const extra = [v.is_group === true ? 'group' : null, v.kind && typeof v.kind === 'string' && v.kind.length <= 20 ? v.kind : null,
+      v.created_at ? fmtTime(v.created_at) : null].filter(Boolean);
+    return [what + (name ? ': ' + name : ''), ...extra, id ? 'id ' + id.slice(0, 8) + '…' : null].filter(Boolean).join(' · ');
+  }
+
   async function runAction(a) {
     if (state.busy) return;
     let lines = (a.lines || []).slice();
+    if (a.target) lines.unshift(a.target);
     try {
       if (a.preview) lines = lines.concat((await rpc('dbtool_preview', { p_action: a.preview.action, p_args: a.preview.args })).lines);
     } catch (e) { toast('Couldn\'t count what it would change: ' + say(e.message), 'bad'); return; }
@@ -429,6 +441,10 @@
   // ---------------------------------------------------------------------------------------------------------------
   // Table view
 
+  const TARGET_WORDS = { children: 'Kid', parents: 'Grown-up', chats: 'Chat', adult_chats: 'Chat between grown-ups',
+    messages: 'Message', adult_messages: 'Message between grown-ups', reports: 'Report', game_rounds: 'KidoFool round',
+    game_guesses: 'KidoFool guess', announcements: 'Announcement' };
+
   function tableActions(t, row, refresh) {
     const v = row.v;
     const out = [];
@@ -439,7 +455,8 @@
       return r.rows.length ? JSON.stringify(r.rows[0].v) : 'gone';
     };
     // a: base action fields; reread/snapshot added for table rows
-    const A = (o) => Object.assign({ reread: t.masked_key ? null : reread, snapshot: snap, after: refresh }, o);
+    const target = targetOf(TARGET_WORDS[t.table] || 'Row in ' + t.table, v);
+    const A = (o) => Object.assign({ reread: t.masked_key ? null : reread, snapshot: snap, after: refresh, target }, o);
     personActions(t.table === 'children' || t.table === 'parents' ? v.id : null, t.table === 'children', A, out);
     if (['contacts', 'adult_kid_friends', 'adult_connections'].includes(t.table)) {
       out.push(actBtn('End friendship', () => runAction(A({ label: 'End friendship', danger: true, checks: ['end_chat'],
@@ -475,7 +492,7 @@
         if (nv === null || nv === v[c]) return;
         runAction({ label: 'Change ' + c, lines: ['Old: ' + v[c], 'New: ' + nv, 'People who already saw it won\'t see the correction.'],
           run: () => rpc('dbtool_edit', { p_table: 'announcements', p_key: { id: v.id }, p_column: c, p_old: v[c], p_new: nv }),
-          checks: ['dbtool_edit'], after: refresh });
+          checks: ['dbtool_edit'], after: refresh, target });
       })));
     }
     if (t.can_remove) {
@@ -485,7 +502,7 @@
           try { lines = (await rpc('dbtool_effect', { p_table: t.table, p_change: { id: v.id } })).lines; } catch (_) { /* none */ }
         }
         if (t.table === 'blocked_identifiers') lines.push('That email or number can sign up again.');
-        runAction({ label: 'Remove this row', danger: true, lines,
+        runAction({ label: 'Remove this row', danger: true, lines, target,
           run: () => rpc('dbtool_remove', { p_table: t.table, p_key: row.key }), checks: ['dbtool_edit'], after: refresh });
       }, 'danger'));
     }
@@ -819,7 +836,7 @@
         if (!rows.length) { root.append(el('div', { class: 'muted', text: 'None.' })); continue; }
         rows.forEach((r) => {
           const out = [];
-          const A = (o) => Object.assign({ after: () => route() }, o);
+          const A = (o) => Object.assign({ after: () => route(), target: targetOf('Report', { id: r.report_id, created_at: r.created_at }) }, o);
           reportActions({ id: r.report_id, chat_id: r.chat_id, message_id: r.message_id, handled_at: r.handled_at }, A, out);
           root.append(el('div', { class: 'panel' },
             el('div', {}, fmtTime(r.created_at), ' · ', (r.kind || ''), ' · reason ',
@@ -842,7 +859,7 @@
         if (!rows.length) { root.append(el('div', { class: 'muted', text: 'None.' })); continue; }
         rows.forEach((c) => {
           const out = [];
-          if (pending) consentActions(c.id, (o) => Object.assign({ after: () => route() }, o), out);
+          if (pending) consentActions(c.id, (o) => Object.assign({ after: () => route(), target: targetOf('Consent form', { id: c.id }) }, o), out);
           root.append(el('div', { class: 'panel' }, listTable([c], { cols: Object.keys(c).filter((k) => k !== 'signature_path') }), el('div', { class: 'actions' }, out)));
         });
       }
@@ -911,21 +928,22 @@
     const out = [];
     const reread = async () => JSON.stringify(await rpc('admin_person', { p_id: id }));
     const snap = JSON.stringify(p);
-    personActions(id, p.is_kid, (o) => Object.assign({ reread, snapshot: snap, after: () => route() }, o), out);
+    const target = targetOf(p.is_kid ? 'Kid' : 'Grown-up', { id, name: p.name });
+    personActions(id, p.is_kid, (o) => Object.assign({ reread, snapshot: snap, after: () => route(), target }, o), out);
     root.append(el('div', { class: 'actions' }, out.filter((b) => b.textContent !== 'Person page')));
     if (p.is_kid && p.pending_selfie) {
       root.append(el('div', { class: 'panel' }, el('h3', { text: 'Photo waiting' }),
         valueNode({ hidden: 'file' }, null, (box) => revealInto(box, 'children', { id }, 'selfie_pending_path', 'file')),
         el('div', { class: 'actions' },
-          actBtn('Approve photo', () => runAction({ label: 'Approve the photo', after: () => route(), run: () => rpc('admin_decide_selfie', { p_child: id, p_approve: true, p_path: p.pending_selfie }) })),
-          actBtn('Reject photo', () => runAction({ label: 'Reject the photo', danger: true, after: () => route(), run: () => rpc('admin_decide_selfie', { p_child: id, p_approve: false, p_path: p.pending_selfie }) }), 'danger'))));
+          actBtn('Approve photo', () => runAction({ label: 'Approve the photo', target, after: () => route(), run: () => rpc('admin_decide_selfie', { p_child: id, p_approve: true, p_path: p.pending_selfie }) })),
+          actBtn('Reject photo', () => runAction({ label: 'Reject the photo', danger: true, target, after: () => route(), run: () => rpc('admin_decide_selfie', { p_child: id, p_approve: false, p_path: p.pending_selfie }) }), 'danger'))));
     }
     const devices = p.devices || [];
     if (devices.length) {
       root.append(el('h3', { text: 'Phones' }));
       devices.forEach((d) => root.append(el('div', { class: 'line' },
         el('div', { class: 'grow', text: (d.label || 'a phone') + (d.signed_in ? ' · signed in' : '') + (d.last_seen ? ' · ' + fmtTime(d.last_seen) : '') }),
-        d.session_id ? actBtn('Sign out this phone', () => runAction({ label: 'Sign out this phone', danger: true, after: () => route(),
+        d.session_id ? actBtn('Sign out this phone', () => runAction({ label: 'Sign out this phone', danger: true, target: target + ' · ' + (d.label || 'a phone'), after: () => route(),
           run: () => rpc('admin_end_session', { p_person: id, p_session: d.session_id }) }), 'danger') : null)));
     }
     const rest = Object.fromEntries(Object.entries(p).filter(([k]) => !['devices', 'chats', 'groups', 'friends', 'adult_friends', 'parents', 'selfie_path', 'pending_selfie', 'avatar'].includes(k)));
@@ -970,7 +988,8 @@
       const adult = await rpc('dbtool_rows', { p_table: 'adult_chats', p_filters: [{ col: 'id', op: 'eq', value: chat }], p_offset: 0, p_limit: 1 });
       frozenAt = adult.rows[0] ? adult.rows[0].v.frozen_at : null;
     }
-    chatActions(chat, chatRow, (o) => Object.assign({ after: () => route() }, o), out, !!frozenAt);
+    const target = targetOf(chatRow ? 'Chat' : 'Chat between grown-ups', Object.assign({}, chatRow, { id: chat, kind: null }));
+    chatActions(chat, chatRow, (o) => Object.assign({ after: () => route(), target }, o), out, !!frozenAt);
     root.append(el('div', { class: 'actions' }, out.filter((b) => b.textContent !== 'Open the chat')));
     return root;
   }
